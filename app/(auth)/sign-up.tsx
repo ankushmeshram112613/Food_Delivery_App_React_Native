@@ -4,8 +4,7 @@ import {Link, router,} from "expo-router";
 import CustomInput from "@/components/CustomInput";
 import CustomButton from "@/components/CustomButton";
 import {useState} from "react";
-import {creatUser} from "@/lib/appwrite";
-import {SignIn} from "@/lib/appwrite";
+import { creatUser, signIn } from "@/lib/appwrite";
 
 
 const SignUp = () => {
@@ -31,7 +30,7 @@ const SignUp = () => {
             });
 
             // 2. Sign in the user after successful registration
-            await SignIn({email, password});
+            await signIn({email, password});
             
             // 3. Navigate to home on success
             router.replace('/');

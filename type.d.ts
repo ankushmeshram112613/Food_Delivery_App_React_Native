@@ -19,10 +19,14 @@ export interface Category extends Models.Document {
 export interface User extends Models.Document {
     name: string;
     email: string;
+    $id: string;
+    $collectionId: string;
+    $databaseId: string;
+    $createdAt: string;
+    $updatedAt: string;
+    $permissions: string[];
     accountId: string;
-    avatar: string;
-    email: string;
-    avatar: string;
+    avatar?: string | null;
 }
 
 export interface CartCustomization {
@@ -107,4 +111,5 @@ interface SignInParams {
 interface GetMenuParams {
     category: string;
     query: string;
+    limit?: number;
 }

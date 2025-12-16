@@ -27,13 +27,28 @@ const useAuthStore = create <AuthState>((set) => ({
     fetchAuthenticatedUser : async () => {
        set({isLoading : true})
         try {
-            const user = await getCurrentUser();
+            const appwriteUser = await getCurrentUser();
 
-            if(user) set({ isAuthenticated: true, user: user as User })
-            else set( { isAuthenticated: false, user: null } );
+            if (appwriteUser) {
+                // Map the Appwrite user to our User type
+                const user: User = {
+                    ...appwriteUser,
+                    // Ensure all required fields are present
+                    accountId: appwriteUser.$id || '',
+                    // Use optional chaining for avatar since it might not exist
+                    avatar: 'avatar' in appwriteUser ? (appwriteUser as any).avatar : null,
+                    // Map any other fields as needed
+                    name: appwriteUser.name || '',
+                    email: appwriteUser.email || '',
+                };
+                
+                set({ isAuthenticated: true, user });
+            } else {
+                set({ isAuthenticated: false, user: null });
+            }
         } catch (e) {
             console.log('fetchAuthenticatedUser error', e);
-            set({ isAuthenticated: false, user: null })
+            set({ isAuthenticated: false, user: null });
         } finally {
             set({ isLoading: false });
         }

@@ -1,5 +1,5 @@
-import {Account, Avatars, Client, Databases, ID, Query} from "react-native-appwrite";
-import {CreateUserParams, SignInParams} from "@/type";
+import {Account, Avatars, Client, Databases, ID, Query , Storage} from "react-native-appwrite";
+import {CreateUserParams, GetMenuParams, MenuItem, SignInParams} from "@/type";
 import {data} from "browserslist";
 // import SignIn from "@/app/(auth)/sign-in";
 import {User} from "@/type";
@@ -13,7 +13,13 @@ export const appwriteConfig = {
     projectID: process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID as string,
     platform: process.env.EXPO_PUBLIC_APPWRITE_PROJECT_NAME as string,
     databaseId: "692a9ab40026a0f4194e",
+    bucketId: "69306ea2002af87301b9",
     userCollectionId: "users",
+    categoryCollectionId: "categories",
+    menuCollectionId: "menu",
+    customizationCollectionId: "customization",
+    orderCollectionId: "orders",
+    menu_customizationsCollectionId: "menu_customizations",
 };
 
 
@@ -27,6 +33,7 @@ client
 export const account = new Account(client);
 export const databases = new Databases(client);
 const avatars = new Avatars(client)
+export  const storage = new Storage(client)
 
 export const creatUser = async ({email, password, name}: CreateUserParams) => {
     try {
@@ -144,3 +151,59 @@ export const getCurrentUser = async () => {
         return null;
     }
 }
+
+export const getMenu = async ({ category, query }: GetMenuParams): Promise<MenuItem[]> => {
+    try {
+        const queries: string[] = [];
+
+        if(category) queries.push(Query.equal('categories', category));
+        if(query) queries.push(Query.search('name', query));
+
+        const menus = await databases.listDocuments<MenuItem>(
+            appwriteConfig.databaseId,
+            appwriteConfig.menuCollectionId,
+            queries,
+        )
+
+        return menus.documents as unknown as MenuItem[];
+    } catch (e) {
+        throw new Error(e as string);
+    }
+}
+
+export const getCategories = async () => {
+    try {
+        console.log('Fetching categories from collection: categories');
+        console.log('Database ID:', appwriteConfig.databaseId);
+        
+        const categories = await databases.listDocuments(
+            appwriteConfig.databaseId,
+            appwriteConfig.categoryCollectionId,
+            [
+                Query.orderAsc('name')
+            ]
+        );
+
+        console.log('Successfully fetched categories:', categories.documents.length);
+        
+        // Transform the documents to match the Category type
+        return categories.documents.map(doc => ({
+            ...doc,
+            name: doc.name || '',
+            description: doc.description || ''
+        }));
+    } catch (e: any) {
+        console.error('Error fetching categories:', {
+            message: e.message,
+            code: e.code,
+            type: e.type
+        });
+        
+        if (e.code === 404) {
+            console.warn('Categories collection not found. Please run the seed function to initialize the database.');
+        }
+        
+        // Return empty array to prevent app crash
+        return [];
+    }
+};
