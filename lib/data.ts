@@ -10,26 +10,26 @@ const dummyData = {
 
     customizations: [
         // Toppings
-        { name: "Extra Cheese", price: 25, type: "chees" },
-        { name: "Jalapeños", price: 20, type: "veggies" },
-        { name: "Onions", price: 10, type: "veggies" },
-        { name: "Olives", price: 15, type: "veggies" },
-        { name: "Mushrooms", price: 18, type: "veggies" },
-        { name: "Tomatoes", price: 10, type: "veggies" },
-        { name: "Bacon", price: 30, type: "non-veg" },
-        { name: "Avocado", price: 35, type: "veggies" },
+        { name: "Extra Cheese", price: 50, type: "chees" },
+        { name: "Jalapeños", price: 40, type: "veggies" },
+        { name: "Onions", price: 20, type: "veggies" },
+        { name: "Olives", price: 30, type: "veggies" },
+        { name: "Mushrooms", price: 35, type: "veggies" },
+        { name: "Tomatoes", price: 20, type: "veggies" },
+        { name: "Bacon", price: 60, type: "non-veg" },
+        { name: "Avocado", price: 70, type: "veggies" },
 
         // Sides
-        { name: "Coke", price: 30, type: "side" },
-        { name: "Fries", price: 35, type: "side" },
-        { name: "Garlic Bread", price: 40, type: "bread" },
-        { name: "Chicken Nuggets", price: 50, type: "non-veg" },
-        { name: "Iced Tea", price: 28, type: "side" },
-        { name: "Salad", price: 33, type: "side" },
-        { name: "Potato Wedges", price: 38, type: "side" },
-        { name: "Mozzarella Sticks", price: 45, type: "chees" },
-        { name: "Sweet Corn", price: 25, type: "veggies" },
-        { name: "Choco Lava Cake", price: 42, type: "side" },
+        { name: "Coke", price: 60, type: "side" },
+        { name: "Fries", price: 70, type: "side" },
+        { name: "Garlic Bread", price: 80, type: "bread" },
+        { name: "Chicken Nuggets", price: 100, type: "non-veg" },
+        { name: "Iced Tea", price: 55, type: "side" },
+        { name: "Salad", price: 65, type: "side" },
+        { name: "Potato Wedges", price: 75, type: "side" },
+        { name: "Mozzarella Sticks", price: 90, type: "chees" },
+        { name: "Sweet Corn", price: 50, type: "veggies" },
+        { name: "Choco Lava Cake", price: 85, type: "side" },
     ],
 
     menu: [
@@ -38,7 +38,7 @@ const dummyData = {
             description: "Beef patty, cheese, lettuce, tomato",
             image_url:
                 "https://static.vecteezy.com/system/resources/previews/044/844/600/large_2x/homemade-fresh-tasty-burger-with-meat-and-cheese-classic-cheese-burger-and-vegetable-ai-generated-free-png.png",
-            price: 25.99,
+            price: 215, // ~$2.59
             rating: 4.5,
             calories: 550,
             protein: 25,
@@ -50,7 +50,7 @@ const dummyData = {
             description: "Loaded with cheese and pepperoni slices",
             image_url:
                 "https://static.vecteezy.com/system/resources/previews/023/742/417/large_2x/pepperoni-pizza-isolated-illustration-ai-generative-free-png.png",
-            price: 30.99,
+            price: 255, // ~$3.07
             rating: 4.7,
             calories: 700,
             protein: 30,
@@ -68,7 +68,7 @@ const dummyData = {
             description: "Stuffed with beans, rice, salsa",
             image_url:
                 "https://static.vecteezy.com/system/resources/previews/055/133/581/large_2x/deliciously-grilled-burritos-filled-with-beans-corn-and-fresh-vegetables-served-with-lime-wedge-and-cilantro-isolated-on-transparent-background-free-png.png",
-            price: 20.99,
+            price: 175, // ~$2.11
             rating: 4.2,
             calories: 480,
             protein: 18,
@@ -80,7 +80,7 @@ const dummyData = {
             description: "Smoky BBQ sauce, crispy bacon, cheddar",
             image_url:
                 "https://static.vecteezy.com/system/resources/previews/060/236/245/large_2x/a-large-hamburger-with-cheese-onions-and-lettuce-free-png.png",
-            price: 27.5,
+            price: 230, // ~$2.77
             rating: 4.8,
             calories: 650,
             protein: 29,
@@ -92,7 +92,7 @@ const dummyData = {
             description: "Grilled chicken, lettuce, Caesar dressing",
             image_url:
                 "https://static.vecteezy.com/system/resources/previews/048/930/603/large_2x/caesar-wrap-grilled-chicken-isolated-on-transparent-background-free-png.png",
-            price: 21.5,
+            price: 180, // ~$2.17
             rating: 4.4,
             calories: 490,
             protein: 28,
@@ -104,7 +104,7 @@ const dummyData = {
             description: "Roasted veggies, pesto, cheese",
             image_url:
                 "https://static.vecteezy.com/system/resources/previews/047/832/012/large_2x/grilled-sesame-seed-bread-veggie-sandwich-with-tomato-and-onion-free-png.png",
-            price: 19.99,
+            price: 165, // ~$1.99
             rating: 4.1,
             calories: 420,
             protein: 19,
@@ -116,7 +116,7 @@ const dummyData = {
             description: "Two juicy beef patties and cheese",
             image_url:
                 "https://static.vecteezy.com/system/resources/previews/060/359/627/large_2x/double-cheeseburger-with-lettuce-tomatoes-cheese-and-sesame-bun-free-png.png",
-            price: 32.99,
+            price: 275, // ~$3.31
             rating: 4.9,
             calories: 720,
             protein: 35,
@@ -134,7 +134,7 @@ const dummyData = {
             description: "Spicy paneer, mint chutney, veggies",
             image_url:
                 "https://static.vecteezy.com/system/resources/previews/057/913/530/large_2x/delicious-wraps-a-tantalizing-array-of-wraps-filled-with-vibrant-vegetables-succulent-fillings-and-fresh-ingredients-artfully-arranged-for-a-mouthwatering-culinary-experience-free-png.png",
-            price: 23.99,
+            price: 200, // ~$2.41
             rating: 4.6,
             calories: 470,
             protein: 20,
@@ -146,7 +146,7 @@ const dummyData = {
             description: "Rice, beans, corn, guac, salsa",
             image_url:
                 "https://static.vecteezy.com/system/resources/previews/057/466/374/large_2x/healthy-quinoa-bowl-with-avocado-tomato-and-black-beans-ingredients-free-png.png",
-            price: 26.49,
+            price: 220, // ~$2.65
             rating: 4.7,
             calories: 610,
             protein: 24,

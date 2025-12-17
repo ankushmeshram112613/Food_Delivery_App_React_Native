@@ -12,7 +12,7 @@ const SignUp = () => {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [form, setForm] = useState({name: '', email: '', password: ''})
 
-    const submi = async () => {
+    const submit = async () => {
         const {name, email, password} = form
         
         if (!name || !email || !password) {
@@ -90,7 +90,7 @@ const SignUp = () => {
 
             <CustomButton
                 title="Sign Up"
-                onPress={submi}
+                onPress={submit}
                 isLoading={isSubmitting}
             />
 

@@ -17,7 +17,7 @@ const Search = () => {
     const {category, query} = useLocalSearchParams<{ query: string; category: string }>()
 
     const {data, refetch, loading} = useAppwrite<MenuItem[], { category?: string; query?: string; limit: number }>({
-        fn: getMenu as any, // We'll fix the getMenu type next
+        fn: getMenu,
         params: {
             category,
             query,

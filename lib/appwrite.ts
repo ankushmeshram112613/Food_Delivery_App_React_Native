@@ -56,12 +56,12 @@ export const creatUser = async ({email, password, name}: CreateUserParams) => {
         return await databases.createDocument(
             appwriteConfig.databaseId,
             appwriteConfig.userCollectionId,
-            ID.unique(),
+            newAccount.$id,
             {
                 email,
                 name,
                 accountId: newAccount.$id,
-                avetar: avatarUrl  // Changed from 'avatar' to 'avetar' to match database schema
+                avatar: avatarUrl
             }
         );
     } catch (error) {
@@ -94,7 +94,21 @@ export const signIn = async ({email, password}: SignInParams) => {
             throw new Error('Failed to authenticate user');
         }
 
-        return currentUser;
+        // Get the full user document from the database
+        const userDoc = await databases.listDocuments(
+            appwriteConfig.databaseId,
+            appwriteConfig.userCollectionId,
+            [Query.equal('accountId', currentUser.$id)]
+        );
+
+        if (!userDoc.documents.length) {
+            throw new Error('User document not found');
+        }
+
+        return {
+            ...currentUser,
+            ...userDoc.documents[0]
+        };
     } catch (error) {
         console.error('Sign in error:', error);
         // Make sure to clear any partial session on error
@@ -135,9 +149,7 @@ export const getCurrentUser = async () => {
         }
 
         return {
-            id: currentAccount.$id,
-            name: currentAccount.name,
-            email: currentAccount.email,
+            ...currentAccount,
             ...userData.documents[0]
         };
     } catch (error) {
@@ -207,3 +219,57 @@ export const getCategories = async () => {
         return [];
     }
 };
+
+export const signOut = async () => {
+    try {
+        await account.deleteSession('current');
+    } catch (error) {
+        console.error('Sign out error:', error);
+        throw error;
+    }
+}
+
+export const uploadFile = async (uri: string, name: string, type: string) => {
+    const asset = {
+        uri,
+        name,
+        type,
+    };
+
+    try {
+        const uploadedFile = await storage.createFile(
+            appwriteConfig.bucketId,
+            ID.unique(),
+            asset as any
+        );
+        return uploadedFile;
+    } catch (error) {
+        throw new Error(error as string);
+    }
+}
+
+export const getFilePreview = async (fileId: string): Promise<string> => {
+    try {
+        const fileUrl = storage.getFileView(
+            appwriteConfig.bucketId,
+            fileId
+        );
+        return fileUrl.toString(); // Convert URL object to string
+    } catch (error) {
+        console.error('Error getting file preview:', error);
+        throw new Error('Failed to get file preview');
+    }
+}
+
+export const updateUser = async (userId: string, data: Partial<User>) => {
+    try {
+        return await databases.updateDocument(
+            appwriteConfig.databaseId,
+            appwriteConfig.userCollectionId,
+            userId,
+            data
+        );
+    } catch (error) {
+        throw new Error(error as string);
+    }
+}

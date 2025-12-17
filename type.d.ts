@@ -25,8 +25,14 @@ export interface User extends Models.Document {
     $createdAt: string;
     $updatedAt: string;
     $permissions: string[];
-    accountId: string;
+    accountId?: string;
     avatar?: string | null;
+    prefs?: {
+        [key: string]: any;  // Allow any additional properties
+        phoneNumber?: string;
+        addressHome?: string;
+        addressWork?: string;
+    }
 }
 
 export interface CartCustomization {
@@ -62,7 +68,7 @@ interface TabBarIconProps {
     title: string;
 }
 
-interface PaymentInfoStripeProps {
+export interface PaymentInfoStripeProps {
     label: string;
     value: string;
     labelStyle?: string;
@@ -76,6 +82,7 @@ interface CustomButtonProps {
     leftIcon?: React.ReactNode;
     textStyle?: string;
     isLoading?: boolean;
+    disabled?: boolean;
 }
 
 interface CustomHeaderProps {
@@ -89,6 +96,7 @@ interface CustomInputProps {
     label: string;
     secureTextEntry?: boolean;
     keyboardType?: "default" | "email-address" | "numeric" | "phone-pad";
+    autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
 }
 
 interface ProfileFieldProps {
@@ -108,8 +116,8 @@ interface SignInParams {
     password: string;
 }
 
-interface GetMenuParams {
-    category: string;
-    query: string;
+export interface GetMenuParams {
+    category?: string;
+    query?: string;
     limit?: number;
 }
